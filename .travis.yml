@@ -27,6 +27,8 @@ before_script:
   - ./start_frontend.sh &
 
 script:
-  - python -m unittest discover $TRAVIS_BUILD_DIR/client/python/modeldb/tests/sklearn
+  - PYTHONPATH=/Users/arcarter/code/modeldb/client/python:$PYTHONPATH
+  - cd $TRAVIS_BUILD_DIR/client/python/modeldb/tests/sklearn
+  - python -m unittest discover .
 
 
