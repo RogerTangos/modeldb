@@ -1,29 +1,30 @@
 sudo: required
 dist: trusty
 
-addons:
-  apt:
-    packages:
-      - thrift-compiler
+# addons:
+#   apt:
+#     packages:
+#       - thrift-compiler
 
 before_install:
 
 install:
-  - pwd
-  - echo $TRAVIS_BUILD_DIR
-  - cd client/python
-  - ./build_client.sh
-  # - cd ../scala/libs/spark.ml
+  # - pwd
+  # - cd $TRAVIS_BUILD_DIR/client/python
   # - ./build_client.sh
-  - docker run -d \
-    --name mongo \
-    -p 27017:27017 \
-    mongo:latest
+  # - cd $TRAVIS_BUILD_DIR/client/scala/libs/spark.ml
+  # - ./build_client.sh
+  # - docker run -d \
+  #   --name mongo \
+  #   -p 27017:27017 \
+  #   mongo:latest
 
 before_script:
-  - cd ../../../../server
+  - PYTHONPATH=/Users/arcarter/code/modeldb/client/python:$PYTHONPATH
+  - pip install -r $TRAVIS_BUILD_DIR/client/python/requirements.txt
+  - cd $TRAVIS_BUILD_DIR/server
   - ./start_server.sh 0.9.0-3 &
-  - cd ../frontend
+  - cd $TRAVIS_BUILD_DIR/frontend
   - ./start_frontend.sh &
 
 script:
