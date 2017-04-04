@@ -11,15 +11,15 @@ install:
   - pwd
   - cd $TRAVIS_BUILD_DIR/client/python
   - ./build_client.sh
-  - cd $TRAVIS_BUILD_DIR/client/scala/libs/spark.ml
-  - ./build_client.sh
+  # - cd $TRAVIS_BUILD_DIR/client/scala/libs/spark.ml
+  # - ./build_client.sh
   - docker run -d --name mongo -p 27017:27017 mongo:latest
 
 
 before_install:
 
 before_script:
-  - PYTHONPATH=/Users/arcarter/code/modeldb/client/python:$PYTHONPATH
+  - PYTHONPATH=$TRAVIS_BUILD_DIR/client/python:$PYTHONPATH
   - pip install -r $TRAVIS_BUILD_DIR/client/python/requirements.txt
   - cd $TRAVIS_BUILD_DIR/server
   - ./start_server.sh 0.9.0-3 &
@@ -27,7 +27,6 @@ before_script:
   - ./start_frontend.sh &
 
 script:
-  - PYTHONPATH=/Users/arcarter/code/modeldb/client/python:$PYTHONPATH
   - cd $TRAVIS_BUILD_DIR/client/python/modeldb/tests/sklearn
   - python -m unittest discover .
 
