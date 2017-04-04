@@ -28,6 +28,7 @@ before_script:
 
 script:
   - cd $TRAVIS_BUILD_DIR/client/python/modeldb/tests/sklearn
+  - echo $PYTHONPATH
   - python -m unittest discover .
 
 
