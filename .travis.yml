@@ -1,0 +1,20 @@
+sudo: required
+dist: trusty
+
+addons:
+  apt:
+    packages:
+      -thrift-compiler
+
+before_install:
+
+install:
+  - cd client/python
+  - ./build_client.sh
+  - cd ../scala/libs/spark.ml
+  - ./build_client.sh
+
+before_script:
+
+script:
+
