@@ -9,12 +9,23 @@ addons:
 before_install:
 
 install:
+  - pwd
+  - echo $TRAVIS_BUILD_DIR
   - cd client/python
   - ./build_client.sh
-  - cd ../scala/libs/spark.ml
-  - ./build_client.sh
+  # - cd ../scala/libs/spark.ml
+  # - ./build_client.sh
+  - docker run -d \
+    --name mongo \
+    -p 27017:27017 \
+    mongo:latest
 
 before_script:
+  - cd ../../../../server
+  - ./start_server.sh 0.9.0-3 &
+  - cd ../frontend
+  - ./start_frontend.sh &
 
 script:
+  -
 
