@@ -13,7 +13,7 @@ install:
   - ./build_client.sh
   # - cd $TRAVIS_BUILD_DIR/client/scala/libs/spark.ml
   # - ./build_client.sh
-  - docker run -d --name mongo -p 27017:27017 mongo:latest
+  # - docker run -d --name mongo -p 27017:27017 mongo:latest
 
 
 before_install:
@@ -29,6 +29,7 @@ before_script:
 script:
   - cd $TRAVIS_BUILD_DIR/client/python/modeldb/tests/sklearn
   - echo $PYTHONPATH
+  - python --version
   - python -m unittest discover .
 
 
