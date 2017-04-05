@@ -38,9 +38,15 @@ install:
 
   - pip install -r $TRAVIS_BUILD_DIR/client/python/requirements.txt
   - export PYTHONPATH=$TRAVIS_BUILD_DIR/client/python:$PYTHONPATH
+  - cd $TRAVIS_BUILD_DIR/server/codegen
+
+  - touch $TRAVIS_BUILD_DIR/gen_sqlite.log
+  - sh ./gen_sqlite.sh >> $TRAVIS_BUILD_DIR/gen_sqlite.log 2>&1 &
+
   - cd $TRAVIS_BUILD_DIR/client/python
   - touch $TRAVIS_BUILD_DIR/build_client.log
   - ./build_client.sh >> $TRAVIS_BUILD_DIR/build_client.log 2>&1 &
+
   # - cd $TRAVIS_BUILD_DIR/client/scala/libs/spark.ml
   # - ./build_client.sh
 
