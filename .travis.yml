@@ -13,11 +13,8 @@ before_install:
   - sudo docker run -d --name mongo -p 27017:27017 mongo:latest
 
   # - install thrift
-  - wget -q http://archive.apache.org/dist/thrift/0.10.0/thrift-0.10.0.tar.gz && \
-  - tar -xzf thrift-0.10.0.tar.gz && \
-  - cd thrift-0.10.0 && \
-  - ./configure --without-python && \
-  - make && \
+  - wget -q http://archive.apache.org/dist/thrift/0.10.0/thrift-0.10.0.tar.gz && tar -xzf thrift-0.10.0.tar.gz
+  - cd thrift-0.10.0 && ./configure --without-python && make &&
   - ln -n ~/thrift-0.10.0/compiler/cpp/thrift /usr/local/bin/thrift
 
   # start server
