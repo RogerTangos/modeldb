@@ -25,8 +25,10 @@ before_install:
   # start server
   - export PYTHONPATH=$TRAVIS_BUILD_DIR/client/python:$PYTHONPATH
   - cd $TRAVIS_BUILD_DIR/server
+  - touch $TRAVIS_BUILD_DIR/server.log
   - ./start_server.sh 0.10.0 &2>&1 $TRAVIS_BUILD_DIR/server.log &
   - cd $TRAVIS_BUILD_DIR/frontend
+  - touch $TRAVIS_BUILD_DIR/frontend.log
   - ./start_frontend.sh &2>&1 $TRAVIS_BUILD_DIR/frontend.log &
 
 install:
@@ -45,7 +47,7 @@ script:
   - echo ===================
   - cat $TRAVIS_BUILD_DIR/server.log
   - cat $TRAVIS_BUILD_DIR/frontend.log
-  - cat $TRAVIS_BUILD_DIR/client.log
+  - cat $TRAVIS_BUILD_DIR/build_client.log
   - echo ===================
   - cd $TRAVIS_BUILD_DIR/client/python/modeldb/tests/sklearn
   - python --version
@@ -53,7 +55,7 @@ script:
   - echo ===================
   - cat $TRAVIS_BUILD_DIR/server.log
   - cat $TRAVIS_BUILD_DIR/frontend.log
-  - cat $TRAVIS_BUILD_DIR/client.log
+  - cat $TRAVIS_BUILD_DIR/build_client.log
 
 
 
