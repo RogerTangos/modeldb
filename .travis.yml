@@ -23,6 +23,7 @@ before_install:
 
 
   # start server
+  - export PYTHONPATH=$TRAVIS_BUILD_DIR/client/python:$PYTHONPATH
   - cd $TRAVIS_BUILD_DIR/server
   - ./start_server.sh 0.10.0 &
   - cd $TRAVIS_BUILD_DIR/frontend
@@ -30,6 +31,7 @@ before_install:
 
 install:
   - pip install -r $TRAVIS_BUILD_DIR/client/python/requirements.txt
+  - export PYTHONPATH=$TRAVIS_BUILD_DIR/client/python:$PYTHONPATH
   - cd $TRAVIS_BUILD_DIR/client/python
   - ./build_client.sh
   # - cd $TRAVIS_BUILD_DIR/client/scala/libs/spark.ml
@@ -39,7 +41,6 @@ before_script:
   - export PYTHONPATH=$TRAVIS_BUILD_DIR/client/python:$PYTHONPATH
 
 script:
-  - python -c "import pandas; pandas.show_versions();"
   - cd $TRAVIS_BUILD_DIR/client/python/modeldb/tests/sklearn
   - echo $PYTHONPATH
   - python --version
