@@ -25,15 +25,18 @@ before_install:
   # start server
   - export PYTHONPATH=$TRAVIS_BUILD_DIR/client/python:$PYTHONPATH
   - cd $TRAVIS_BUILD_DIR/server
-  - ./start_server.sh 0.10.0 &
-  - cd $TRAVIS_BUILD_DIR/frontend
+  - touch $TRAVIS_BUILD_DIR/server.log
+  - ./start_server.sh 0.10.0 & > $TRAVIS_BUILD_DIR/server.log
+  - cd $TRAVIS_BUILD_DIR/frontend.log
+  - touch $TRAVIS_BUILD_DIR/frontend.log > $TRAVIS_BUILD_DIR/frontend.log
   - ./start_frontend.sh &
 
 install:
   - pip install -r $TRAVIS_BUILD_DIR/client/python/requirements.txt
   - export PYTHONPATH=$TRAVIS_BUILD_DIR/client/python:$PYTHONPATH
   - cd $TRAVIS_BUILD_DIR/client/python
-  - ./build_client.sh
+  - touch $TRAVIS_BUILD_DIR/build_client.log
+  - ./build_client.sh > $TRAVIS_BUILD_DIR/build_client.log
   # - cd $TRAVIS_BUILD_DIR/client/scala/libs/spark.ml
   # - ./build_client.sh
 
@@ -41,9 +44,18 @@ before_script:
   - export PYTHONPATH=$TRAVIS_BUILD_DIR/client/python:$PYTHONPATH
 
 script:
+  - echo ===================
+  - cat $TRAVIS_BUILD_DIR/server.log
+  - cat $TRAVIS_BUILD_DIR/frontend.log
+  - cat $TRAVIS_BUILD_DIR/client.log
+  - echo ===================
   - cd $TRAVIS_BUILD_DIR/client/python/modeldb/tests/sklearn
-  - echo $PYTHONPATH
   - python --version
   - python -m unittest discover .
+  - echo ===================
+  - cat $TRAVIS_BUILD_DIR/server.log
+  - cat $TRAVIS_BUILD_DIR/frontend.log
+  - cat $TRAVIS_BUILD_DIR/client.log
+
 
 
