@@ -55,17 +55,14 @@ before_script:
 
 script:
   - echo ===================
-  - cat $TRAVIS_BUILD_DIR/server.log
-  - cat $TRAVIS_BUILD_DIR/frontend.log
-  - cat $TRAVIS_BUILD_DIR/build_client.log
-  - echo ===================
   - cd $TRAVIS_BUILD_DIR/client/python/modeldb/tests/sklearn
   - python --version
   - python -m unittest discover .
   - echo ===================
-  - cat $TRAVIS_BUILD_DIR/server.log
-  - cat $TRAVIS_BUILD_DIR/frontend.log
-  - cat $TRAVIS_BUILD_DIR/build_client.log
+  # - cat $TRAVIS_BUILD_DIR/server.log
+  # - cat $TRAVIS_BUILD_DIR/frontend.log
+  # - cat $TRAVIS_BUILD_DIR/build_client.log
+  - cat $TRAVIS_BUILD_DIR/gen_sqlite.log
 
 
 
