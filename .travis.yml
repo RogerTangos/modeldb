@@ -69,7 +69,8 @@ install:
   # - touch $TRAVIS_BUILD_DIR/server.log
   - cd $TRAVIS_BUILD_DIR/server
   # - ./start_server.sh 0.9.3 >> $TRAVIS_BUILD_DIR/server.log 2>&1 &
-  - ./start_server.sh 0.9.3 &
+  # - ./start_server.sh 0.9.3 &
+  - ./start_server.sh > $TRAVIS_BUILD_DIR/server.log 2>&1 &
   # - ../scripts/gen_thrift_file.py java '../thrift/ModelDB.thrift' './src/main/thrift/'
   # - THRIFT_VERSION="-Dthrift_version=0.9.3"
   # - mvn clean compile $THRIFT_VERSION
@@ -93,12 +94,12 @@ script:
   - python --version
   - python -m unittest discover .
   - echo ===================
-  - cat $TRAVIS_BUILD_DIR/server.log
   - cat $TRAVIS_BUILD_DIR/frontend.log
   - cat $TRAVIS_BUILD_DIR/build_client.log
-  - cat $TRAVIS_BUILD_DIR/gen_sqlite.log
-  - history
-  - cat /home/travis/.travis/job_stages
+  - cat $TRAVIS_BUILD_DIR/server.log
+  # - cat $TRAVIS_BUILD_DIR/gen_sqlite.log
+  # - history
+  # - cat /home/travis/.travis/job_stages
 
 
 
