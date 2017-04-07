@@ -48,7 +48,7 @@ install:
   # start server
   - touch $TRAVIS_BUILD_DIR/server.log
   - cd $TRAVIS_BUILD_DIR/server
-  - ./start_server.sh 0.10.0 >> $TRAVIS_BUILD_DIR/server.log 2>&1 &
+  - ./start_server.sh 0.9.3 >> $TRAVIS_BUILD_DIR/server.log 2>&1 &
 
   # start frontend
   - touch $TRAVIS_BUILD_DIR/frontend.log
