@@ -34,7 +34,7 @@ install:
   # gen_sqlite
   - touch $TRAVIS_BUILD_DIR/gen_sqlite.log
   - cd $TRAVIS_BUILD_DIR/server/codegen
-  - sh ./gen_sqlite.sh >> $TRAVIS_BUILD_DIR/gen_sqlite.log 2>&1
+  - sh ./gen_sqlite.sh >> $TRAVIS_BUILD_DIR/gen_sqlite.log 2>&1 &
 
   # build python client
   - cd $TRAVIS_BUILD_DIR/client/python
@@ -72,6 +72,7 @@ script:
   - cat $TRAVIS_BUILD_DIR/frontend.log
   - cat $TRAVIS_BUILD_DIR/build_client.log
   - cat $TRAVIS_BUILD_DIR/gen_sqlite.log
+  - history
 
 
 
