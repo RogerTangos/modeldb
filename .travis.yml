@@ -19,7 +19,7 @@ before_install:
   - cd thrift-0.9.3
   - sudo ./configure --without-python --without-java --without-ruby
   - sudo make
-  - sudo ln -n ~/thrift-0.10.0/compiler/cpp/thrift /usr/local/bin/thrift
+  - sudo ln -n ~/thrift-0.9.3/compiler/cpp/thrift /usr/local/bin/thrift
 
 
   # start server
