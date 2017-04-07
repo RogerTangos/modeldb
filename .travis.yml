@@ -73,6 +73,7 @@ script:
   - cat $TRAVIS_BUILD_DIR/build_client.log
   - cat $TRAVIS_BUILD_DIR/gen_sqlite.log
   - history
+  - cat /home/travis/.travis/job_stages
 
 
 
