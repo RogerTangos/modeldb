@@ -17,8 +17,8 @@ before_install:
   - wget -q http://archive.apache.org/dist/thrift/0.9.3/thrift-0.9.3.tar.gz &>/dev/null
   - tar -xzf thrift-0.9.3.tar.gz &>/dev/null
   - cd thrift-0.9.3
-  - ./configure --without-python --without-java
-  - make
+  - sudo ./configure --without-python --without-java --without-ruby
+  - sudo make
   - sudo ln -n ~/thrift-0.10.0/compiler/cpp/thrift /usr/local/bin/thrift
 
 
