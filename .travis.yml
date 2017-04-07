@@ -32,8 +32,9 @@ install:
   - export PYTHONPATH=$TRAVIS_BUILD_DIR/client/python:$PYTHONPATH
 
   # gen_sqlite
-  - touch $TRAVIS_BUILD_DIR/server/codegengen_sqlite.log
-  - sh ./gen_sqlite.sh >> $TRAVIS_BUILD_DIR/gen_sqlite.log 2>&1 &
+  - touch $TRAVIS_BUILD_DIR/gen_sqlite.log
+  - cd $TRAVIS_BUILD_DIR/server/codegen
+  - sh ./gen_sqlite.sh >> $TRAVIS_BUILD_DIR/gen_sqlite.log 2>&1
 
   # build python client
   - cd $TRAVIS_BUILD_DIR/client/python
@@ -45,14 +46,13 @@ install:
   # - ./build_client.sh
 
   # start server
-  - export PYTHONPATH=$TRAVIS_BUILD_DIR/client/python:$PYTHONPATH
-  - cd $TRAVIS_BUILD_DIR/server
   - touch $TRAVIS_BUILD_DIR/server.log
+  - cd $TRAVIS_BUILD_DIR/server
   - ./start_server.sh 0.10.0 >> $TRAVIS_BUILD_DIR/server.log 2>&1 &
 
   # start frontend
-  - cd $TRAVIS_BUILD_DIR/frontend
   - touch $TRAVIS_BUILD_DIR/frontend.log
+  - cd $TRAVIS_BUILD_DIR/frontend
   - ./start_frontend.sh >> $TRAVIS_BUILD_DIR/frontend.log 2>&1 &
 
 
