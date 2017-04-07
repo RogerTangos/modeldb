@@ -49,7 +49,7 @@ install:
   - mv modeldb_test.db ../
   - sudo chmod a+wrx ../modeldb.db
   - sudo chmod a+wrx ../modeldb_test.db
-  -
+
   # clear old modeldb mongodb data and start mongodb server
   - mongo modeldb_metadata --eval "db.dropDatabase()"
   - mkdir -p mongodb
@@ -66,9 +66,12 @@ install:
   # - ./build_client.sh
 
   # start server
-  - touch $TRAVIS_BUILD_DIR/server.log
+  # - touch $TRAVIS_BUILD_DIR/server.log
   - cd $TRAVIS_BUILD_DIR/server
-  - ./start_server.sh 0.9.3 >> $TRAVIS_BUILD_DIR/server.log 2>&1 &
+  # - ./start_server.sh 0.9.3 >> $TRAVIS_BUILD_DIR/server.log 2>&1 &
+  ../scripts/gen_thrift_file.py java '../thrift/ModelDB.thrift' './src/main/thrift/'
+  - THRIFT_VERSION="-Dthrift_version=0.9.3"
+  - mvn clean compile $THRIFT_VERSION && mvn exec:java -Dexec.mainClass="edu.mit.csail.db.ml.main.Main" $THRIFT_VERSION
 
   # start frontend
   - touch $TRAVIS_BUILD_DIR/frontend.log
