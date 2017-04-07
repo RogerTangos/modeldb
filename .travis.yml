@@ -69,7 +69,7 @@ install:
   # - touch $TRAVIS_BUILD_DIR/server.log
   - cd $TRAVIS_BUILD_DIR/server
   # - ./start_server.sh 0.9.3 >> $TRAVIS_BUILD_DIR/server.log 2>&1 &
-  ../scripts/gen_thrift_file.py java '../thrift/ModelDB.thrift' './src/main/thrift/'
+  - ../scripts/gen_thrift_file.py java '../thrift/ModelDB.thrift' './src/main/thrift/'
   - THRIFT_VERSION="-Dthrift_version=0.9.3"
   - mvn clean compile $THRIFT_VERSION && mvn exec:java -Dexec.mainClass="edu.mit.csail.db.ml.main.Main" $THRIFT_VERSION
 
