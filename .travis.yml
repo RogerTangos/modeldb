@@ -11,44 +11,53 @@ addons:
 
 before_install:
   - sudo docker run -d --name mongo -p 27017:27017 mongo:latest
+  - sudo apt-get install -y sqlite
+  - sudo apt-get install -y maven
+  - sudo apt-get install -y nodejs
 
   # - install thrift
   - cd ~/
   - wget -q http://archive.apache.org/dist/thrift/0.9.3/thrift-0.9.3.tar.gz &>/dev/null
   - tar -xzf thrift-0.9.3.tar.gz &>/dev/null
-  - cd thrift-0.9.3
+  - cd ~/thrift-0.9.3
   - sudo ./configure --without-python --without-java --without-ruby
   - sudo make
   - sudo ln -n ~/thrift-0.9.3/compiler/cpp/thrift /usr/local/bin/thrift
 
+
+install:
+
+  # do pip installs, set pythonpath
+  - pip install -r $TRAVIS_BUILD_DIR/client/python/requirements.txt
+  - export PYTHONPATH=$TRAVIS_BUILD_DIR/client/python:$PYTHONPATH
+
+  # gen_sqlite
+  - touch $TRAVIS_BUILD_DIR/server/codegengen_sqlite.log
+  - sh ./gen_sqlite.sh >> $TRAVIS_BUILD_DIR/gen_sqlite.log 2>&1 &
+
+  # build python client
+  - cd $TRAVIS_BUILD_DIR/client/python
+  - touch $TRAVIS_BUILD_DIR/build_client.log
+  - ./build_client.sh >> $TRAVIS_BUILD_DIR/build_client.log 2>&1 &
+
+  # build scala client
+  # - cd $TRAVIS_BUILD_DIR/client/scala/libs/spark.ml
+  # - ./build_client.sh
 
   # start server
   - export PYTHONPATH=$TRAVIS_BUILD_DIR/client/python:$PYTHONPATH
   - cd $TRAVIS_BUILD_DIR/server
   - touch $TRAVIS_BUILD_DIR/server.log
   - ./start_server.sh 0.10.0 >> $TRAVIS_BUILD_DIR/server.log 2>&1 &
+
+  # start frontend
   - cd $TRAVIS_BUILD_DIR/frontend
   - touch $TRAVIS_BUILD_DIR/frontend.log
   - ./start_frontend.sh >> $TRAVIS_BUILD_DIR/frontend.log 2>&1 &
 
-install:
-  - sudo apt-get install -y sqlite
-  - sudo apt-get install -y maven
-  - sudo apt-get install -y nodejs
 
-  - pip install -r $TRAVIS_BUILD_DIR/client/python/requirements.txt
-  - export PYTHONPATH=$TRAVIS_BUILD_DIR/client/python:$PYTHONPATH
-  - cd $TRAVIS_BUILD_DIR/server/codegen
 
-  - touch $TRAVIS_BUILD_DIR/gen_sqlite.log
-  - sh ./gen_sqlite.sh >> $TRAVIS_BUILD_DIR/gen_sqlite.log 2>&1 &
 
-  - cd $TRAVIS_BUILD_DIR/client/python
-  - touch $TRAVIS_BUILD_DIR/build_client.log
-  - ./build_client.sh >> $TRAVIS_BUILD_DIR/build_client.log 2>&1 &
-
-  # - cd $TRAVIS_BUILD_DIR/client/scala/libs/spark.ml
-  # - ./build_client.sh
 
 before_script:
   - export PYTHONPATH=$TRAVIS_BUILD_DIR/client/python:$PYTHONPATH
