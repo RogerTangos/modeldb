@@ -11,6 +11,7 @@ addons:
 
 before_install:
   - sudo docker run -d --name mongo -p 27017:27017 mongo:latest
+  - docker ps
   - sudo apt-get install -y sqlite
   - sudo apt-get install -y maven
   - sudo apt-get install -y nodejs
@@ -60,6 +61,7 @@ install:
   - cd $TRAVIS_BUILD_DIR/client/python
   - touch $TRAVIS_BUILD_DIR/build_client.log
   - ./build_client.sh
+  - /bin/netstat -tlpn
 
   # build scala client
   # - cd $TRAVIS_BUILD_DIR/client/scala/libs/spark.ml
@@ -70,7 +72,8 @@ install:
   - cd $TRAVIS_BUILD_DIR/server
   - ../scripts/gen_thrift_file.py java '../thrift/ModelDB.thrift' './src/main/thrift/'
   - THRIFT_VERSION="-Dthrift_version=0.9.3"
-  - travis_wait mvn clean compile $THRIFT_VERSION && mvn exec:java -Dexec.mainClass="edu.mit.csail.db.ml.main.Main" $THRIFT_VERSION
+  - mvn clean compile $THRIFT_VERSION
+  - mvn exec:java -Dexec.mainClass="edu.mit.csail.db.ml.main.Main" $THRIFT_VERSION &
   - /bin/sleep 20
 
   # - ./start_server.sh 0.9.3 >> $TRAVIS_BUILD_DIR/server.log 2>&1 &
@@ -81,10 +84,10 @@ install:
   # - mvn clean compile $THRIFT_VERSION
   # - mvn exec:java -Dexec.mainClass="edu.mit.csail.db.ml.main.Main" $THRIFT_VERSION
 
-  # start frontend
-  - touch $TRAVIS_BUILD_DIR/frontend.log
-  - cd $TRAVIS_BUILD_DIR/frontend
-  - ./start_frontend.sh >> $TRAVIS_BUILD_DIR/frontend.log 2>&1 &
+  # # start frontend
+  # - touch $TRAVIS_BUILD_DIR/frontend.log
+  # - cd $TRAVIS_BUILD_DIR/frontend
+  # - ./start_frontend.sh >> $TRAVIS_BUILD_DIR/frontend.log 2>&1 &
 
 
 
@@ -92,6 +95,7 @@ install:
 
 before_script:
   - export PYTHONPATH=$TRAVIS_BUILD_DIR/client/python:$PYTHONPATH
+  - /bin/netstat -tlpn
 
 script:
   - echo ===================
@@ -99,8 +103,8 @@ script:
   - python --version
   - python -m unittest discover .
   - echo ===================
-  - cat $TRAVIS_BUILD_DIR/frontend.log
-  - cat $TRAVIS_BUILD_DIR/build_client.log
+  # - cat $TRAVIS_BUILD_DIR/frontend.log
+  # - cat $TRAVIS_BUILD_DIR/build_client.log
   - cat $TRAVIS_BUILD_DIR/server.log
   # - cat $TRAVIS_BUILD_DIR/gen_sqlite.log
   # - history
