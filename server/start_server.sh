@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+
 # generate thrift file
 ../scripts/gen_thrift_file.py java '../thrift/ModelDB.thrift' './src/main/thrift/'
 
