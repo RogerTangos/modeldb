@@ -16,7 +16,7 @@ before_install:
   - sudo apt-get install -y maven
   - sudo apt-get install -y nodejs
 
-  - install thrift
+  # install thrift
   - cd ~/
   - wget -q http://archive.apache.org/dist/thrift/0.9.3/thrift-0.9.3.tar.gz &>/dev/null
   - tar -xzf thrift-0.9.3.tar.gz &>/dev/null
