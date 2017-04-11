@@ -5,7 +5,7 @@ language: python
 addons:
   apt:
     packages:
-      # - thrift-compiler
+      - thrift-compiler
       - docker
 
 
@@ -17,13 +17,13 @@ before_install:
   - sudo apt-get install -y nodejs
 
   # - install thrift
-  - cd ~/
-  - wget -q http://archive.apache.org/dist/thrift/0.9.3/thrift-0.9.3.tar.gz &>/dev/null
-  - tar -xzf thrift-0.9.3.tar.gz &>/dev/null
-  - cd ~/thrift-0.9.3
-  - sudo ./configure --without-python --without-java --without-ruby
-  - sudo make
-  - sudo ln -n ~/thrift-0.9.3/compiler/cpp/thrift /usr/local/bin/thrift
+  # - cd ~/
+  # - wget -q http://archive.apache.org/dist/thrift/0.9.3/thrift-0.9.3.tar.gz &>/dev/null
+  # - tar -xzf thrift-0.9.3.tar.gz &>/dev/null
+  # - cd ~/thrift-0.9.3
+  # - sudo ./configure --without-python --without-java --without-ruby
+  # - sudo make
+  # - sudo ln -n ~/thrift-0.9.3/compiler/cpp/thrift /usr/local/bin/thrift
 
 
 install:
@@ -70,7 +70,6 @@ script:
   - python --version
   # - python -m unittest discover .
   - python testProjectCreation.py
-  - echo ===================
 
 
 
