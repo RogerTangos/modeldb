@@ -68,8 +68,8 @@ script:
   - echo ===================
   - cd $TRAVIS_BUILD_DIR/client/python/modeldb/tests/sklearn
   - python --version
-  # - python -m unittest discover .
-  - python testProjectCreation.py
+  - python -m unittest discover .
+  # - python testProjectCreation.py
 
 
 
