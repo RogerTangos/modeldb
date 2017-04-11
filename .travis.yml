@@ -45,7 +45,6 @@ install:
   - cd $TRAVIS_BUILD_DIR/client/python
   - touch $TRAVIS_BUILD_DIR/build_client.log
   - ./build_client.sh
-  - /bin/netstat -tlpn
 
   # build scala client
   # - cd $TRAVIS_BUILD_DIR/client/scala/libs/spark.ml
@@ -71,7 +70,7 @@ install:
 
 before_script:
   - export PYTHONPATH=$TRAVIS_BUILD_DIR/client/python:$PYTHONPATH
-  - /bin/netstat -tlpn
+  # - /bin/netstat -tlpn
 
 script:
   - echo ===================
