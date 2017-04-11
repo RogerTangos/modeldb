@@ -33,6 +33,7 @@ install:
   - export PYTHONPATH=$TRAVIS_BUILD_DIR/client/python:$PYTHONPATH
 
   # gen_sqlite
+  - cd $TRAVIS_BUILD_DIR/server/codegen
   - sh ./gen_sqlite.sh
 
   # clear old modeldb mongodb data and start mongodb server
