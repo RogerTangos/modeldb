@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 rm -rf jars/
-# rm sqlite/*jar
+rm sqlite/*jar
 mkdir -p jars
 wget http://central.maven.org/maven2/org/jooq/jooq/3.8.4/jooq-3.8.4.jar -O jars/jooq-3.8.4.jar
 wget http://central.maven.org/maven2/org/jooq/jooq-meta/3.8.4/jooq-meta-3.8.4.jar -O jars/jooq-meta-3.8.4.jar
