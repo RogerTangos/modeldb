@@ -43,9 +43,7 @@ install:
 
   # build python client
   - cd $TRAVIS_BUILD_DIR/client/python
-  - touch $TRAVIS_BUILD_DIR/build_client.log
   - ./build_client.sh
-  - /bin/netstat -tlpn
 
   # build scala client
   # - cd $TRAVIS_BUILD_DIR/client/scala/libs/spark.ml
@@ -53,19 +51,12 @@ install:
 
   # start server
   - cd $TRAVIS_BUILD_DIR/server
-  # - ../scripts/gen_thrift_file.py java '../thrift/ModelDB.thrift' './src/main/thrift/'
-  # - THRIFT_VERSION="-Dthrift_version=0.9.3"
-  # - mvn clean compile $THRIFT_VERSION
-  # - mvn exec:java -Dexec.mainClass="edu.mit.csail.db.ml.main.Main" $THRIFT_VERSION &
   - ./start_server.sh
   - /bin/sleep 30
 
   # # start frontend
-  # - touch $TRAVIS_BUILD_DIR/frontend.log
   # - cd $TRAVIS_BUILD_DIR/frontend
-  # - ./start_frontend.sh >> $TRAVIS_BUILD_DIR/frontend.log 2>&1 &
-
-
+  # - ./start_frontend.sh
 
 
 
@@ -80,11 +71,6 @@ script:
   # - python -m unittest discover .
   - python testProjectCreation.py
   - echo ===================
-  # - cat $TRAVIS_BUILD_DIR/frontend.log
-  # - cat $TRAVIS_BUILD_DIR/build_client.log
-  # - cat $TRAVIS_BUILD_DIR/gen_sqlite.log
-  # - history
-  # - cat /home/travis/.travis/job_stages
 
 
 
