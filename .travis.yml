@@ -53,7 +53,7 @@ install:
   # start server
   # - touch $TRAVIS_BUILD_DIR/server.log
   - cd $TRAVIS_BUILD_DIR/server
-  - ./start_server.sh &
+  - ./start_server.sh
   # - ../scripts/gen_thrift_file.py java '../thrift/ModelDB.thrift' './src/main/thrift/'
   # - THRIFT_VERSION="-Dthrift_version=0.9.3"
   # - mvn clean compile $THRIFT_VERSION
