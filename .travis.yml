@@ -78,6 +78,7 @@ script:
   # scala sbt tests
   - echo =================== SEVER TESTS ===================
   - ls -la $TRAVIS_BUILD_DIR/server/codegen
+  - ls -la $TRAVIS_BUILD_DIR/server
   - cd $TRAVIS_BUILD_DIR/server
   - mvn test -Dthrift_version=0.9.3
 
