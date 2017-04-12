@@ -2,6 +2,9 @@ sudo: required
 dist: trusty
 language: python
 
+notifications:
+  email: false
+
 addons:
   apt:
     packages:
@@ -52,8 +55,8 @@ install:
   - ./build_client.sh
 
   # build scala client
-  - cd $TRAVIS_BUILD_DIR/client/scala/libs/spark.ml
-  - ./build_client.sh
+  # - cd $TRAVIS_BUILD_DIR/client/scala/libs/spark.ml
+  # - ./build_client.sh
 
   # start server
   - cd $TRAVIS_BUILD_DIR/server
@@ -74,6 +77,7 @@ script:
 
   # scala sbt tests
   - echo =================== SEVER TESTS ===================
+  - ls -la $TRAVIS_BUILD_DIR/server/codegen
   - cd $TRAVIS_BUILD_DIR/server
   - mvn test -Dthrift_version=0.9.3
 
