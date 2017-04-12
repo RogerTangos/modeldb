@@ -72,14 +72,16 @@ before_script:
   - /bin/netstat -tlpn
 
 script:
-  - echo ===================
+
+  # scala sbt tests
+  - echo =================== SCALA  TESTS ===================
+  - cd $TRAVIS_BUILD_DIR/client/scala/libs/spark.ml
+  - sbt test
+  - echo =================== PYTHON TESTS ===================
   # python tests
   - cd $TRAVIS_BUILD_DIR/client/python/modeldb/tests/sklearn
   - python -m unittest discover .
 
-  # scala sbt tests
-  - cd $TRAVIS_BUILD_DIR/client/scala/libs/spark.ml
-  - sbt test
   # - python testProjectCreation.py
 
 
