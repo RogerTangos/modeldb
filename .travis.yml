@@ -52,7 +52,7 @@ install:
 
   # start server
   - cd $TRAVIS_BUILD_DIR/server
-  - ./start_server.sh
+  - ./start_server_test.sh
   - /bin/sleep 30
 
   # # start frontend
