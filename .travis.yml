@@ -34,12 +34,12 @@ before_install:
 
   # install thrift
   - cd ~/
-  - wget -q http://archive.apache.org/dist/thrift/0.9.3/thrift-0.9.3.tar.gz &>/dev/null
-  - tar -xzf thrift-0.9.3.tar.gz &>/dev/null
-  - cd ~/thrift-0.9.3
+  - wget -q http://archive.apache.org/dist/thrift/0.10.0/thrift-0.10.0.tar.gz &>/dev/null
+  - tar -xzf thrift-0.10.0.tar.gz &>/dev/null
+  - cd ~/thrift-0.10.0
   - sudo ./configure --without-python --without-java --without-ruby
   - sudo make
-  - sudo ln -n ~/thrift-0.9.3/compiler/cpp/thrift /usr/local/bin/thrift
+  - sudo ln -n ~/thrift-0.10.0/compiler/cpp/thrift /usr/local/bin/thrift
 
 
 install:
@@ -81,7 +81,7 @@ script:
   # scala sbt tests
   - echo =================== SEVER TESTS ===================
   - cd $TRAVIS_BUILD_DIR/server
-  - mvn test -Dthrift_version=0.9.3
+  - mvn test -Dthrift_version=0.10.0
 
   # - echo =================== CLIENT TESTS ===================
   # - echo ------------------- SCALA  TESTS -------------------
