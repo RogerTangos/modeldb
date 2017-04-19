@@ -71,7 +71,7 @@ script:
   # scala sbt tests
   - echo =================== SEVER TESTS ===================
   - cd $TRAVIS_BUILD_DIR/server
-  - mvn test -Dtest=TestFitEvent -Dthrift_version=0.9.3
+  - mvn test -Dthrift_version=0.9.3
 
   # - echo =================== CLIENT TESTS ===================
   # - echo ------------------- SCALA  TESTS -------------------
