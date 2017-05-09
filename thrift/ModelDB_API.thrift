@@ -18,8 +18,8 @@ exception ResourceNotFoundException {
 }
 
 
-/* 
-  A project is the highest level in the grouping hierarchy. A project can 
+/*
+  A project is the highest level in the grouping hierarchy. A project can
   contain multiple experiments, which in turn can contain experiment runs.
 
   Attributes:
@@ -43,7 +43,7 @@ struct Project {
   7: optional string dateLastUpdated
 }
 
-/* 
+/*
   Experiments are the second level in the grouping hierarchy. An experiment can contain
   multiple experiment runs.
 
@@ -87,7 +87,7 @@ struct ExperimentRun {
   6: optional string jsonMetadata
 }
 
-/* 
+/*
   A column in a DataFrame.
 
   name: The name of this column.
@@ -99,7 +99,7 @@ struct DataFrameColumn {
 }
 
 /*
-  A MetadataKV is any key-value pair along with the type of the value. 
+  A MetadataKV is any key-value pair along with the type of the value.
   It is used to associate arbitrary metadata with ModelDB entities
 
   key: key.
@@ -112,7 +112,7 @@ struct MetadataKV {
   3: string valueType
 }
 
-/* 
+/*
   A tabular set of data. Contains many columns, each containing a single type
   of data. Each row in a DataFrame is a distinct example in the dataset.
 
@@ -139,7 +139,7 @@ struct DataSource {
   3: optional string jsonMetadata
 }
 
-/* 
+/*
   A HyperParameter guides the fitting of a TransformerSpec to a DataFrame in order to produce a Transformer.
   Some example hyperparameters include the number of trees in a random forest, the regularization parameter in
   linear regression, or the value "k" in k-means clustering.
@@ -159,7 +159,7 @@ struct HyperParameter {
 }
 
 /*
-  A TransformerSpec is a machine learning primitive that describes 
+  A TransformerSpec is a machine learning primitive that describes
   the hyperparameters used to create a model (A Transformer produced
   by fitting a TransformerSpec to a DataFrame).
 
@@ -192,6 +192,74 @@ enum ProblemType {
   // A problem in which a set of items are selected and (possibly) ordered for a given user.
   RECOMMENDATION
 }
+
+
+/*
+  Contains information about linear model (e.g. linear regression, logistic regression).
+
+  interceptTerm: An optional term that represents the intercept of the linear model.
+  featureTerms: The non-intercept terms. These are ordered based on their correspondence with
+                the feature vectors. For example, the first term corresponds to the first entry of the
+                feature vector.
+  objectiveHistory: An optional history of every value the objective function has
+                    obtained while being created, where objectiveHistory[i] is
+                    the value of the objective function on iteration i.
+  rmse: An optional root-mean-square error of this model from the training set.
+  explainedVariance: An optional explained variance of the training set.
+      --Explained Variance measures the proportion to which a mathematical model
+      -- accounts for the variation (dispersion) of a given data set (Wikipedia)
+  r2: The optional r^2 value that measures how well fitted the model is with respect to its training set.
+*/
+struct LinearModel {
+  1: optional LinearModelTerm interceptTerm
+  2: list<LinearModelTerm> featureTerms,
+  3: optional list<double> objectiveHistory,
+  4: optional double rmse,
+  5: optional double explainedVariance,
+  6: optional double r2
+}
+
+/*
+  A term in a linear model.
+
+  coefficient: The coefficient of the feature.
+  tStat: An optional T-Value to associate with this term.
+  stdErr: An optional calculated Standard Error to associate with this term.
+  pValue: An optional P-Value to associate with this term.
+*/
+struct LinearModelTerm {
+  1: double coefficient,
+  2: optional double tStat,
+  3: optional double stdErr,
+  4: optional double pValue
+}
+
+/*
+  The response that indicates all the experiment runs and experiments for a project.
+
+  projId: The id of the project.
+  experiments: The list of experiments in the project.
+  experimentRuns: The list of experiment runs in the project.
+*/
+struct ProjectExperimentsAndRuns {
+  1: i32 projId,
+  2: list<Experiment> experiments,
+  3: list<ExperimentRun> experimentRuns
+}
+
+/*
+  The response given when the user requests the overview of a project.
+
+  project: The project.
+  numExperiments: The number of experiments contained in the project.
+  numExperimentRuns: The number of experiment runs contained in the experiments contained in the project.
+*/
+struct ProjectOverviewResponse {
+  1: Project project,
+  2: i32 numExperiments,
+  3: i32 numExperimentRuns
+}
+
 
 struct Model {
   1: i32 id,
@@ -268,7 +336,7 @@ struct ExperimentRunDetailsResponse {
 
 service ModelDBAPI {
 
-  i32 createProject(1: Project project) 
+  i32 createProject(1: Project project)
     throws (1: ServerLogicException svEx),
 
   i32 createExperiment(1: Experiment experiment)
@@ -284,13 +352,13 @@ service ModelDBAPI {
   list<i32> getExperimentIds(1: map<string, string> keyValuePairs)
     throws (1: ServerLogicException svEx),
 
-  Experiment getExperiment(1: i32 experimentId) 
+  Experiment getExperiment(1: i32 experimentId)
     throws (1: ServerLogicException svEx, 2: ResourceNotFoundException rnfEx),
 
   list<i32> getExperimentRunIds(1: map<string, string> keyValuePairs)
     throws (1: ServerLogicException svEx),
 
-  ExperimentRun getExperimentRun(1: i32 experimentRunId) 
+  ExperimentRun getExperimentRun(1: i32 experimentRunId)
     throws (1: ServerLogicException svEx, 2: ResourceNotFoundException rnfEx),
 
   /*
