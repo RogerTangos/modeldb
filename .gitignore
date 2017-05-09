@@ -1,8 +1,5 @@
 # DS_Store
-.DS_Store
-*/.DS_Store
-*/*/.DS_Store
-*/*/*/.DS_Store
+*.DS_Store
 client/scala/libs/spark.ml/src/main/thrift/ModelDB.thrift
 client/scala/libs/spark.ml/src/main/thrift/ModelDB_API.thrift
 client/python/ModelDB.thrift
